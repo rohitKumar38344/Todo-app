@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1.6rem;
+  background-color: #333;
+}
+
+img {
+  display: block;
+}
+
+.header {
+  background-image: url("../images/bg-desktop-dark.jpg");
+  display: flex;
+  height: 22rem;
+  padding: 1.6rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: peachpuff;
+}
+
+.task-input-ctn {
+  display: flex;
+  justify-content: center;
+}
+
+#user-input {
+  height: 4rem;
+  padding: 1rem;
+}
+
+.task-list {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.task-list-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 100vw;
+  border: 1px solid gray;
+
+  display: grid;
+  place-content: center;
+}
+
+.task-list-item {
+  display: flex;
+  gap: 2.4rem;
+  justify-content: center;
+  width: 60%;
+}
+
+.task-list-status {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-list-status__group {
+  display: flex;
+  gap: 2rem;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+/* || Task Status */
+.active {
+  background-color: orangered;
+}
+
+.task-list-item.finished .task-list-icon {
+  background-image: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+}
+
+.task-list-item.finished .task-list-content {
+  text-decoration: line-through;
+}

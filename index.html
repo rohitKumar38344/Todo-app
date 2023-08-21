@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Todo app</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="primary-heading">TO DO</h1>
+      <img src="images/icon-sun.svg" alt="icon-sun" />
+    </header>
+    <main class="container">
+      <div class="task-input-ctn">
+        <input
+          type="text"
+          name="user-task"
+          id="user-input"
+          placeholder="Create a new todo.."
+        />
+      </div>
+      <div class="task-list">
+        <!-- <div class="task-list-item">
+          <p class="task-list-icon">
+            <img src="images/icon-check.svg" alt="icon-check" />
+          </p>
+          <p class="task-list-content">Jog around the park 3x</p>
+        </div> -->
+
+        <div class="task-list-status">
+          <p class="task-count">3 items left</p>
+          <div class="task-list-status__group">
+            <p class="task-all">All</p>
+            <p class="task-active">Active</p>
+            <p class="task-completed">Completed</p>
+          </div>
+          <p class="task-clear">Clear Completed</p>
+        </div>
+      </div>
+    </main>
+    <footer class="attribution">
+      <p>Drag and drop to reorder list</p>
+      <p>
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="#">Your Name Here</a>.
+      </p>
+    </footer>
+    <script src="../scripts/app.js"></script>
+  </body>
+</html>
