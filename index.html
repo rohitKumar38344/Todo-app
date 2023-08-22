@@ -23,35 +23,40 @@
   </head>
   <body>
     <header class="header">
-      <h1 class="primary-heading">TO DO</h1>
-      <img src="images/icon-sun.svg" alt="icon-sun" />
-    </header>
-    <main class="container">
-      <div class="task-input-ctn">
-        <input
-          type="text"
-          name="user-task"
-          id="user-input"
-          placeholder="Create a new todo.."
-        />
+      <div class="header-ctn">
+        <h1 class="primary-heading">TO DO</h1>
+        <img src="images/icon-sun.svg" alt="icon-sun" />
       </div>
-      <div class="task-list">
-        <div class="task-list-ctn">
-          <!-- <div class="task-list-item">
+    </header>
+    <main>
+      <div class="container">
+        <div class="task-input-ctn">
+          <!-- <p class="task-list-icon"></p> -->
+          <input
+            type="text"
+            name="user-task"
+            id="user-input"
+            placeholder="Create a new todo.."
+          />
+        </div>
+        <div class="task-list">
+          <div class="task-list-ctn">
+            <!-- <div class="task-list-item">
           <p class="task-list-icon">
             <img src="images/icon-check.svg" alt="icon-check" />
           </p>
           <p class="task-list-content">Jog around the park 3x</p>
-        </div> -->
-        </div>
-        <div class="task-list-status">
-          <p><span id="task-count">0</span> items left</p>
-          <div class="task-list-status__group">
-            <p class="task-all">All</p>
-            <p class="task-active">Active</p>
-            <p class="task-completed">Completed</p>
+          </div> -->
           </div>
-          <p class="task-clear">Clear Completed</p>
+          <div class="task-list-status">
+            <p><span id="task-count">0</span> items left</p>
+            <div class="task-list-status__group">
+              <p class="task-all highlight">All</p>
+              <p class="task-active">Active</p>
+              <p class="task-completed">Completed</p>
+            </div>
+            <p class="task-clear">Clear Completed</p>
+          </div>
         </div>
       </div>
     </main>

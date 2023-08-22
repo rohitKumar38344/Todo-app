@@ -12,7 +12,11 @@ body {
   min-height: 100vh;
   font-family: "Josefin Sans", sans-serif;
   font-size: 1.6rem;
-  background-color: #333;
+  background-color: hsl(235, 21%, 11%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 img {
@@ -21,28 +25,80 @@ img {
 
 .header {
   background-image: url("../images/bg-desktop-dark.jpg");
-  display: flex;
   height: 22rem;
+  width: 100%;
+}
+
+.header-ctn {
   padding: 1.6rem;
-  justify-content: center;
+  /* border-radius: 5px; */
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
+  margin-top: 3.2rem;
+}
+
+.primary-heading {
+  letter-spacing: 1rem;
+  color: #fff;
+}
+
+main {
+  margin-top: -10.2rem;
+  margin-bottom: 2.4rem;
 }
 
 .container {
-  background-color: peachpuff;
+}
+
+.header-ctn,
+.container {
+  width: 60vw;
 }
 
 .task-input-ctn {
+  height: 5rem;
+  margin-bottom: 2.4rem;
+  padding: 1.6rem;
+  border-radius: 5px;
+  background-color: hsl(235, 24%, 19%);
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
 }
 
 #user-input {
-  height: 4rem;
-  padding: 1rem;
+  width: 100vw;
+  cursor: text;
+  font-family: inherit;
+  font-size: 1.6rem;
+  background-color: hsl(235, 24%, 19%);
+  color: #fff;
+  border: 0;
+}
+
+#user-input:focus {
+  outline: none;
+}
+
+#user-input::placeholder {
+  color: hsl(236, 33%, 92%);
+}
+
+#user-input::before {
+  content: "";
+  display: inline-block;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 100%;
+  border: 1px solid gray;
 }
 
 .task-list-ctn {
+  background-color: hsl(235, 24%, 19%);
+  border-radius: 5px 5px 0 0;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -61,11 +117,17 @@ img {
 .task-list-item {
   display: flex;
   gap: 2.4rem;
-  justify-content: center;
-  width: 60%;
+  width: 100%;
+  padding: 1.6rem;
+  border-bottom: 1px solid hsl(234, 39%, 85%);
+  align-items: center;
 }
 
 .task-list-status {
+  background-color: hsl(235, 24%, 19%);
+  color: hsl(234, 11%, 52%);
+  padding: 1.6rem;
+  border-radius: 0 0 5px 5px;
   display: flex;
   justify-content: space-between;
 }
@@ -75,6 +137,13 @@ img {
   gap: 2rem;
 }
 
+.task-all,
+.task-completed,
+.task-active,
+.task-clear {
+  cursor: pointer;
+}
+
 .attribution {
   font-size: 11px;
   text-align: center;
@@ -82,10 +151,18 @@ img {
 .attribution a {
   color: hsl(228, 45%, 44%);
 }
+.attribution p {
+  color: hsl(234, 11%, 52%);
+  margin-bottom: 2.4rem;
+}
 
 /* || Task Status */
 .active {
-  background-color: orangered;
+  color: hsl(234, 39%, 85%);
+}
+
+.finished {
+  color: hsl(234, 11%, 52%);
 }
 
 .task-list-item.finished .task-list-icon {
@@ -94,4 +171,8 @@ img {
 
 .task-list-item.finished .task-list-content {
   text-decoration: line-through;
+}
+
+.highlight {
+  color: hsl(220, 98%, 61%);
 }

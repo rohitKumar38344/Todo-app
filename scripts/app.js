@@ -75,8 +75,8 @@ function createTask(taskInfo) {
   // rebuildTailwind();
 }
 
-function displayAllTasks() {
-  // const allTasks = document.querySelectorAll(".task-list-item");
+function displayAllTasks(e) {
+  e.target.classList.toggle("highlight");
 
   taskContainerEl.innerHTML = "";
   console.log("Inside displayAllTasks: ", taskArr);
@@ -85,8 +85,8 @@ function displayAllTasks() {
   });
 }
 
-function displayActiveTasks() {
-  // const allTasks = document.querySelectorAll(".task-list-item");
+function displayActiveTasks(e) {
+  e.target.classList.toggle("highlight");
   taskContainerEl.innerHTML = "";
   console.log("Inside displayActiveTasks", taskArr);
   taskArr.forEach((task) => {
@@ -94,8 +94,8 @@ function displayActiveTasks() {
   });
 }
 
-function displayCompletedTasks() {
-  // const allTasks = document.querySelectorAll(".task-list-item");
+function displayCompletedTasks(e) {
+  e.target.classList.toggle("highlight");
   taskContainerEl.innerHTML = "";
   console.log("Inside displayCompletedTasks ", taskArr);
   taskArr.forEach((task) => {
@@ -103,8 +103,8 @@ function displayCompletedTasks() {
   });
 }
 
-function clearTasks() {
-  // const alltask = document.querySelectorAll(".task-list-item");
+function clearTasks(e) {
+  e.target.classList.toggle("highlight");
   taskContainerEl.innerHTML = "";
   const activeTask = taskArr.filter((task) =>
     task.classList.contains("active")
