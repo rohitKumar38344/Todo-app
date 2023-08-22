@@ -1,5 +1,11 @@
+const taskContainerEl = document.querySelector(".task-list-ctn");
 const taskOpSection = document.querySelector(".task-list-status");
 const taskCountEl = document.getElementById("task-count");
+const allBtn = document.querySelector(".task-all");
+const activeBtn = document.querySelector(".task-active");
+const completedBtn = document.querySelector(".task-completed");
+const clearBtn = document.querySelector(".task-clear");
+let taskArr = [];
 
 document.addEventListener("keydown", function (e) {
   if (e.key == "Enter" && e.target.id === "user-input") {
@@ -10,10 +16,10 @@ document.addEventListener("keydown", function (e) {
 });
 
 function updateTaskStatus() {
-  const taskListEl = document.querySelectorAll(".task-list-item");
-  // console.log(taskListEl);
+  const taskListItemEl = document.querySelectorAll(".task-list-item");
+  // console.log(taskListItemEl);
   let activetaskCount = 0;
-  taskListEl.forEach((task) => {
+  taskListItemEl.forEach((task) => {
     if (task.classList.contains("active")) activetaskCount++;
   });
   taskCountEl.textContent = activetaskCount;
@@ -44,14 +50,12 @@ function updateTask(ev) {
 }
 
 function createTask(taskInfo) {
-  const taskListEl = document.querySelector(".task-list");
+  const taskListContainerEl = document.querySelector(".task-list-ctn");
   const divEl = document.createElement("div");
   divEl.classList.add("task-list-item", "active");
   divEl.addEventListener("click", updateTask);
   divEl.addEventListener("click", updateTaskStatus);
 
-  // add image when the task is checked as child of parent div
-  const imgEl = `<img src="../images/icon-check.svg" alt="" class="w-full" />`;
   const paraEl = document.createElement("p");
   paraEl.classList.add("task-list-icon");
   const anotherParaEl = document.createElement("p");
@@ -61,13 +65,62 @@ function createTask(taskInfo) {
 
   divEl.appendChild(paraEl);
   divEl.appendChild(anotherParaEl);
-  taskListEl.insertBefore(divEl, taskOpSection);
+  taskListContainerEl.appendChild(divEl);
 
   //reseting the value
   document.querySelector("#user-input").value = "";
+  taskArr.push(divEl);
+  // allTasks = document.querySelectorAll(".task-list-item");
   updateTaskStatus();
   // rebuildTailwind();
 }
+
+function displayAllTasks() {
+  // const allTasks = document.querySelectorAll(".task-list-item");
+
+  taskContainerEl.innerHTML = "";
+  console.log("Inside displayAllTasks: ", taskArr);
+  taskArr.forEach((task) => {
+    taskContainerEl.appendChild(task);
+  });
+}
+
+function displayActiveTasks() {
+  // const allTasks = document.querySelectorAll(".task-list-item");
+  taskContainerEl.innerHTML = "";
+  console.log("Inside displayActiveTasks", taskArr);
+  taskArr.forEach((task) => {
+    if (task.classList.contains("active")) taskContainerEl.appendChild(task);
+  });
+}
+
+function displayCompletedTasks() {
+  // const allTasks = document.querySelectorAll(".task-list-item");
+  taskContainerEl.innerHTML = "";
+  console.log("Inside displayCompletedTasks ", taskArr);
+  taskArr.forEach((task) => {
+    if (task.classList.contains("finished")) taskContainerEl.appendChild(task);
+  });
+}
+
+function clearTasks() {
+  // const alltask = document.querySelectorAll(".task-list-item");
+  taskContainerEl.innerHTML = "";
+  const activeTask = taskArr.filter((task) =>
+    task.classList.contains("active")
+  );
+  taskArr = activeTask;
+  activeTask.forEach((task) => {
+    taskContainerEl.appendChild(task);
+  });
+  // displayAllTasks();
+}
+
+allBtn.addEventListener("click", displayAllTasks);
+activeBtn.addEventListener("click", displayActiveTasks);
+completedBtn.addEventListener("click", displayCompletedTasks);
+clearBtn.addEventListener("click", clearTasks);
+
 /*
 const { exec } = require("child_process");
 
