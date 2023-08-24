@@ -6,6 +6,8 @@ const activeBtn = document.querySelector(".task-active");
 const completedBtn = document.querySelector(".task-completed");
 const clearBtn = document.querySelector(".task-clear");
 let taskArr = [];
+let taskIdCount = 0;
+let currentView = "all";
 
 document.addEventListener("keydown", function (e) {
   if (e.key == "Enter" && e.target.id === "user-input") {
@@ -47,14 +49,24 @@ function updateTask(ev) {
     const taskListIconEl = divEl.querySelector(".task-list-icon");
     taskListIconEl.innerHTML = "";
   }
+
+  updateTaskStatus();
 }
 
 function createTask(taskInfo) {
   const taskListContainerEl = document.querySelector(".task-list-ctn");
   const divEl = document.createElement("div");
   divEl.classList.add("task-list-item", "active");
+  divEl.setAttribute("draggable", "true");
+  divEl.setAttribute("id", `${++taskIdCount}`);
   divEl.addEventListener("click", updateTask);
-  divEl.addEventListener("click", updateTaskStatus);
+  // divEl.addEventListener("click", deleteTask);
+
+  const imgEl = document.createElement("img");
+  imgEl.setAttribute("src", "images/icon-cross.svg");
+  imgEl.setAttribute("alt", "delete icon");
+  imgEl.setAttribute("class", "cross-icon");
+  imgEl.addEventListener("click", deleteTask);
 
   const paraEl = document.createElement("p");
   paraEl.classList.add("task-list-icon");
@@ -65,39 +77,78 @@ function createTask(taskInfo) {
 
   divEl.appendChild(paraEl);
   divEl.appendChild(anotherParaEl);
+  divEl.appendChild(imgEl);
   taskListContainerEl.appendChild(divEl);
 
   //reseting the value
   document.querySelector("#user-input").value = "";
   taskArr.push(divEl);
-  // allTasks = document.querySelectorAll(".task-list-item");
+
   updateTaskStatus();
-  // rebuildTailwind();
+  setUpDragAndDrop(divEl);
+}
+
+function deleteTask(e) {
+  if (e.target && e.target.classList.contains("cross-icon")) {
+    const task = e.target.closest(".task-list-item");
+
+    if (task) {
+      task.remove(); // Or perform your delete logic
+      console.log("delete task: ", task);
+
+      const removeTaskId = task.id;
+      for (let index = 0; index < taskArr.length; index++) {
+        const element = taskArr[index];
+        if (element.id === removeTaskId) {
+          console.log("el removing in ask arr: ", element);
+          console.log("before removing el from arr: ", taskArr);
+          taskArr.splice(index, 1);
+          console.log("after removing el from arr new arr: ", taskArr);
+        }
+      }
+
+      switch (currentView) {
+        case "all":
+          displayAllTasks();
+          break;
+        case "active":
+          displayActiveTasks();
+          break;
+        default:
+          displayCompletedTasks();
+          break;
+      }
+      updateTaskStatus();
+    } else {
+      console.log("No such task exists.");
+    }
+  } else {
+    return;
+  }
+  e.stopPropagation();
 }
 
 function displayAllTasks(e) {
-  e.target.classList.toggle("highlight");
-
+  currentView = "all";
   taskContainerEl.innerHTML = "";
-  console.log("Inside displayAllTasks: ", taskArr);
   taskArr.forEach((task) => {
     taskContainerEl.appendChild(task);
   });
 }
 
 function displayActiveTasks(e) {
-  e.target.classList.toggle("highlight");
+  currentView = "active";
   taskContainerEl.innerHTML = "";
-  console.log("Inside displayActiveTasks", taskArr);
+
   taskArr.forEach((task) => {
     if (task.classList.contains("active")) taskContainerEl.appendChild(task);
   });
 }
 
 function displayCompletedTasks(e) {
-  e.target.classList.toggle("highlight");
+  currentView = "completed";
   taskContainerEl.innerHTML = "";
-  console.log("Inside displayCompletedTasks ", taskArr);
+
   taskArr.forEach((task) => {
     if (task.classList.contains("finished")) taskContainerEl.appendChild(task);
   });
@@ -121,23 +172,50 @@ activeBtn.addEventListener("click", displayActiveTasks);
 completedBtn.addEventListener("click", displayCompletedTasks);
 clearBtn.addEventListener("click", clearTasks);
 
-/*
-const { exec } = require("child_process");
-
-function rebuildTailwind() {
-  exec(
-    "npx tailwindcss build -o path/to/output.css",
-    (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`Stderr: ${stderr}`);
-        return;
-      }
-      console.log(`Tailwind CSS recompiled: ${stdout}`);
-    }
-  );
+let dragSrcElement = null;
+function setUpDragAndDrop(task) {
+  task.addEventListener("dragstart", handleDragStart, false);
+  task.addEventListener("dragover", handleDragOver, false);
+  task.addEventListener("drop", handleDrop, false);
 }
-*/
+
+function handleDragStart(e) {
+  dragSrcElement = this;
+  console.log(this);
+  console.log(this.innerHTML);
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/html", this.innerHTML);
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  e.dataTransfer.dropEffect = "move";
+  return false;
+}
+
+function handleDrop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation(); // Stops the browser from redirecting.
+  }
+  const destClasses = dragSrcElement.classList;
+  const srcClasses = this.classList;
+  const destClassToMove = destClasses[1];
+  const srcClassToMove = srcClasses[1];
+
+  const data = e.dataTransfer.getData("text/html");
+  console.log("data transfered: ", data);
+  if (dragSrcElement !== this) {
+    dragSrcElement.innerHTML = this.innerHTML;
+    this.innerHTML = data;
+    // if both the classes are same then, we don't need to exchange classes
+    if (destClassToMove !== srcClassToMove) {
+      this.classList.remove(srcClassToMove);
+      this.classList.add(destClassToMove);
+      dragSrcElement.classList.remove(destClassToMove);
+      dragSrcElement.classList.add(srcClassToMove);
+    }
+  }
+  return false;
+}
