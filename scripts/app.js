@@ -1,5 +1,5 @@
 const taskContainerEl = document.querySelector(".task-list-ctn");
-const taskOpSection = document.querySelector(".task-list-status");
+const taskOpSection = document.querySelector(".task-list-status__group");
 const taskCountEl = document.getElementById("task-count");
 const allBtn = document.querySelector(".task-all");
 const activeBtn = document.querySelector(".task-active");
@@ -155,7 +155,6 @@ function displayCompletedTasks(e) {
 }
 
 function clearTasks(e) {
-  e.target.classList.toggle("highlight");
   taskContainerEl.innerHTML = "";
   const activeTask = taskArr.filter((task) =>
     task.classList.contains("active")
@@ -167,10 +166,25 @@ function clearTasks(e) {
   // displayAllTasks();
 }
 
-allBtn.addEventListener("click", displayAllTasks);
-activeBtn.addEventListener("click", displayActiveTasks);
-completedBtn.addEventListener("click", displayCompletedTasks);
-clearBtn.addEventListener("click", clearTasks);
+function highlightSelectedBtn(hightlightBtn) {
+  const taskOpBtns = document.querySelectorAll(".taskop-btn");
+  taskOpBtns.forEach((btn) => btn.classList.remove("highlight"));
+  hightlightBtn.classList.add("highlight");
+}
+
+taskOpSection.addEventListener("click", function (e) {
+  if (e.target.classList.contains("task-all")) {
+    displayAllTasks();
+  } else if (e.target.classList.contains("task-active")) {
+    displayActiveTasks();
+  } else if (e.target.classList.contains("task-completed")) {
+    displayCompletedTasks();
+  } else {
+    clearTasks();
+  }
+
+  highlightSelectedBtn(e.target);
+});
 
 let dragSrcElement = null;
 function setUpDragAndDrop(task) {
@@ -181,8 +195,6 @@ function setUpDragAndDrop(task) {
 
 function handleDragStart(e) {
   dragSrcElement = this;
-  console.log(this);
-  console.log(this.innerHTML);
   e.dataTransfer.effectAllowed = "move";
   e.dataTransfer.setData("text/html", this.innerHTML);
 }
@@ -205,7 +217,7 @@ function handleDrop(e) {
   const srcClassToMove = srcClasses[1];
 
   const data = e.dataTransfer.getData("text/html");
-  console.log("data transfered: ", data);
+
   if (dragSrcElement !== this) {
     dragSrcElement.innerHTML = this.innerHTML;
     this.innerHTML = data;
