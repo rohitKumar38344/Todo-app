@@ -1,7 +1,25 @@
-* {
+*,
+::after,
+::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --body-bg-color: hsl(235, 21%, 11%);
+  --header-bg-img: url("../images/bg-desktop-dark.jpg");
+  --user-input-bg: hsl(235, 24%, 19%);
+  --input-text-color: #fff;
+  --placeholder-text-color: hsl(236, 33%, 92%);
+}
+
+.darkmode {
+  --body-bg-color: hsl(233, 11%, 84%);
+  --header-bg-img: url("../images/bg-desktop-light.jpg");
+  --user-input-bg: hsl(0, 0%, 98%);
+  --input-text-color: hsl(236, 9%, 61%);
+  --placeholder-text-color: hsl(236, 9%, 61%);
 }
 
 html {
@@ -12,7 +30,7 @@ body {
   min-height: 100vh;
   font-family: "Josefin Sans", sans-serif;
   font-size: 1.6rem;
-  background-color: hsl(235, 21%, 11%);
+  background-color: var(--body-bg-color);
 
   display: flex;
   flex-direction: column;
@@ -24,14 +42,13 @@ img {
 }
 
 .header {
-  background-image: url("../images/bg-desktop-dark.jpg");
+  background-image: var(--header-bg-img);
   height: 22rem;
   width: 100%;
 }
 
 .header-ctn {
   padding: 1.6rem;
-  /* border-radius: 5px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,9 +66,6 @@ main {
   margin-bottom: 2.4rem;
 }
 
-.container {
-}
-
 .header-ctn,
 .container {
   width: 60vw;
@@ -62,7 +76,7 @@ main {
   margin-bottom: 2.4rem;
   padding: 1.6rem;
   border-radius: 5px;
-  background-color: hsl(235, 24%, 19%);
+  background-color: var(--user-input-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,8 +88,8 @@ main {
   cursor: text;
   font-family: inherit;
   font-size: 1.6rem;
-  background-color: hsl(235, 24%, 19%);
-  color: #fff;
+  background-color: inherit;
+  color: var(--input-text-color);
   border: 0;
 }
 
@@ -84,7 +98,7 @@ main {
 }
 
 #user-input::placeholder {
-  color: hsl(236, 33%, 92%);
+  color: var(--placeholder-text-color);
 }
 
 #user-input::before {
@@ -97,7 +111,7 @@ main {
 }
 
 .task-list-ctn {
-  background-color: hsl(235, 24%, 19%);
+  background-color: var(--user-input-bg);
   border-radius: 5px 5px 0 0;
   display: flex;
   flex-flow: column nowrap;
@@ -134,7 +148,7 @@ main {
 }
 
 .task-list-status {
-  background-color: hsl(235, 24%, 19%);
+  background-color: var(--user-input-bg);
   color: hsl(234, 11%, 52%);
   padding: 1.6rem;
   border-radius: 0 0 5px 5px;

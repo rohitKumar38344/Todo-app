@@ -5,6 +5,7 @@ const allBtn = document.querySelector(".task-all");
 const activeBtn = document.querySelector(".task-active");
 const completedBtn = document.querySelector(".task-completed");
 const clearBtn = document.querySelector(".task-clear");
+
 let taskArr = [];
 let taskIdCount = 0;
 let currentView = "all";
@@ -230,4 +231,35 @@ function handleDrop(e) {
     }
   }
   return false;
+}
+
+// switch app theme
+// check for saved 'darkMode' in local storage
+let darkMode = localStorage.getItem("darkMode");
+
+const enableDarkMode = () => {
+  document.body.classList.add("darkmode");
+  localStorage.setItem("darkMode", "enabled");
+};
+const disableDarkMode = () => {
+  document.body.classList.remove("darkmode");
+  localStorage.setItem("darkMode", null);
+};
+
+if (darkMode == "enabled") {
+  enableDarkMode();
+}
+
+const darkModeToggle = document.getElementById("theme-changer");
+darkModeToggle.addEventListener("click", changeTheme);
+function changeTheme(ev) {
+  const img = ev.target;
+  darkMode = localStorage.getItem("darkMode");
+  if (darkMode !== "enabled") {
+    enableDarkMode();
+    img.src = "images/icon-moon.svg";
+  } else {
+    disableDarkMode();
+    img.src = "images/icon-sun.svg";
+  }
 }
