@@ -12,6 +12,7 @@
   --user-input-bg: hsl(235, 24%, 19%);
   --input-text-color: #fff;
   --placeholder-text-color: hsl(236, 33%, 92%);
+  --task-active-color: hsl(234, 39%, 85%);
 }
 
 .darkmode {
@@ -20,6 +21,7 @@
   --user-input-bg: hsl(0, 0%, 98%);
   --input-text-color: hsl(236, 9%, 61%);
   --placeholder-text-color: hsl(236, 9%, 61%);
+  --task-active-color: hsl(236, 9%, 61%);
 }
 
 html {
@@ -182,7 +184,7 @@ main {
 
 /* || Task Status */
 .active {
-  color: hsl(234, 39%, 85%);
+  color: var(--task-active-color);
 }
 
 .finished {

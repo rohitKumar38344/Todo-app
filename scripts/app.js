@@ -248,6 +248,8 @@ const disableDarkMode = () => {
 
 if (darkMode == "enabled") {
   enableDarkMode();
+  // img.src = "images/icon-moon.svg";
+  document.getElementById("theme-changer").src = "images/icon-moon.svg";
 }
 
 const darkModeToggle = document.getElementById("theme-changer");
